@@ -1,64 +1,69 @@
 #!/bin/bash
 
 # be new
-apt-get update
+sudo apt clean
+sudo apt autoremove -y
+sudo apt update
+sudo apt upgrade
 
 # get software
-apt-get install \
-	unclutter \
-    xorg \
-    chromium-browser \
-    openbox \
-    lightdm \
-    locales \
-    -y
+sudo apt install
+sudo apt-get install --no-install-recommends \
+  chromium-browser \
+  xdotool \
+  unclutter \
+  sed \
+  fonts-noto-color-emoji \
 
-# dir
-mkdir -p /home/pi/.config/openbox
-
-# remove virtual consoles
-if [ -e "/etc/X11/xorg.conf" ]; then
-  mv /etc/X11/xorg.conf /etc/X11/xorg.conf.backup
-fi
-cat > /etc/X11/xorg.conf << EOF
-Section "ServerFlags"
-    Option "DontVTSwitch" "true"
-EndSection
-EOF
-
-# create config
-if [ -e "/etc/lightdm/lightdm.conf" ]; then
-  mv /etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf.backup
-fi
-cat > /etc/lightdm/lightdm.conf << EOF
-[SeatDefaults]
-autologin-user=pi
-user-session=openbox
-EOF
-
-# create autostart
-if [ -e "/home/pi/.config/openbox/autostart" ]; then
-  mv /home/pi/.config/openbox/autostart /home/kiosk/.config/openbox/autostart.backup
-fi
-cat > /home/pi/.config/openbox/autostart << EOF
+# create kiosk startup script
+sudo cat > /home/pi/kiosk.sh << EOF
 #!/bin/bash
 
-unclutter -idle 0.1 -grab -root &
+xset -dpms     # disable DPMS (Energy Star) features.
+xset s off     # disable screen saver
+xset s noblank # don't blank the video device
 
-while :
-do
-  xrandr --auto
-  chromium-browser \
-    --no-first-run \
-    --start-maximized \
-    --disable \
-    --disable-translate \
-    --disable-infobars \
-    --disable-suggestions-service \
-    --disable-session-crashed-bubble \
-    --kiosk "https://kedinger.com/work-kiosk"
-  sleep 5
-done &
+unclutter -idle 0.5 -root &    # hide X mouse cursor unless mouse activated
+
+sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' /home/$USER/.config/chromium/Default/Preferences
+sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' /home/$USER/.config/chromium/Default/Preferences
+
+/usr/bin/chromium-browser \
+  --noerrdialogs \
+  --disable-infobars \
+  --kiosk https://kedinger.com/work-kiosk &
+
+while true; do
+   xdotool keydown ctrl+r; xdotool keyup ctrl+r;
+   sleep 5
+done
 EOF
 
-echo "Done!"
+# make executable
+chmod u+x ~/kiosk.sh
+
+# create kiosk service
+sudo cat > /lib/systemd/system/kiosk.service << EOF
+[Unit]
+Description=Chromium Kiosk
+Wants=graphical.target
+After=graphical.target
+
+[Service]
+Environment=DISPLAY=:0.0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+Type=simple
+ExecStart=/bin/bash /home/pi/kiosk.sh
+Restart=on-abort
+User=pi
+Group=pi
+
+[Install]
+WantedBy=graphical.target
+EOF
+
+sudo systemctl enable kiosk.service
+
+echo "Done! Rebooting now..."
+
+sudo reboot
