@@ -64,10 +64,8 @@ do
     --disable-translate \
     --disable-infobars \
     --disable-suggestions-service \
-    --disable-save-password-bubble \
     --disable-session-crashed-bubble \
-    --incognito \
-    --kiosk "https://di0h4zj8gkq21xe05ijbmws2gt1mgjse.ui.nabu.casa/dashboard-kiosk/0"
+    --kiosk "https://kedinger.com/work-kiosk"
   sleep 5
 done &
 EOF
