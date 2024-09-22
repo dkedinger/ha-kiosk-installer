@@ -9,11 +9,11 @@ Login as root or with root permissions
 Download this installer, make it executable and run it
 
 ```
-wget https://raw.githubusercontent.com/dkedinger/ha-kiosk-installer/master/kiosk-installer.sh; chmod +x kiosk-installer.sh; ./kiosk-installer.sh
+wget https://raw.githubusercontent.com/dkedinger/ha-kiosk-installer/master/kiosk-installer.sh; sudo chmod +x kiosk-installer.sh; sudo ./kiosk-installer.sh
 ```
 
 If you want to setup this Kiosk as a Wyoming Voice Satellite, download this installer, make it executable and run it
 
 ```
-wget https://raw.githubusercontent.com/dkedinger/ha-kiosk-installer/master/kiosk-installer-wyoming-satellite.sh; chmod +x kiosk-installer-wyoming-satellite.sh; ./kiosk-installer-wyoming-satellite.sh
+wget https://raw.githubusercontent.com/dkedinger/ha-kiosk-installer/master/kiosk-installer-wyoming-satellite.sh; sudo chmod +x kiosk-installer-wyoming-satellite.sh; sudo ./kiosk-installer-wyoming-satellite.sh
 ```
