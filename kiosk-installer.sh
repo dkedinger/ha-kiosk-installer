@@ -24,7 +24,7 @@ xset -dpms     # disable DPMS (Energy Star) features.
 xset s off     # disable screen saver
 xset s noblank # don't blank the video device
 
-unclutter -idle 0.5 -root &    # hide X mouse cursor unless mouse activated
+unclutter -idle 1 -root &    # hide X mouse cursor unless mouse activated
 
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' /home/$USER/.config/chromium/Default/Preferences
 sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' /home/$USER/.config/chromium/Default/Preferences
