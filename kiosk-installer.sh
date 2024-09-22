@@ -14,6 +14,7 @@ sudo apt-get install --no-install-recommends \
   unclutter \
   sed \
   fonts-noto-color-emoji \
+  -y
 
 # create kiosk startup script
 sudo cat > /home/pi/kiosk.sh << EOF
