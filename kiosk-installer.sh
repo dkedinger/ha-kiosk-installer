@@ -7,8 +7,7 @@ sudo apt update
 sudo apt upgrade
 
 # get software
-sudo apt install
-sudo apt-get install --no-install-recommends \
+sudo apt install --no-install-recommends \
   chromium-browser \
   xdotool \
   unclutter \
