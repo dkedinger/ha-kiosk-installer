@@ -7,7 +7,7 @@ apt-get update
 apt-get install \
 	unclutter \
     xorg \
-    chromium \
+    chromium-browser \
     openbox \
     lightdm \
     locales \
@@ -57,7 +57,7 @@ unclutter -idle 0.1 -grab -root &
 while :
 do
   xrandr --auto
-  chromium \
+  chromium-browser \
     --no-first-run \
     --start-maximized \
     --disable \
@@ -67,7 +67,7 @@ do
     --disable-save-password-bubble \
     --disable-session-crashed-bubble \
     --incognito \
-    --kiosk "https://neave.tv/"
+    --kiosk "https://di0h4zj8gkq21xe05ijbmws2gt1mgjse.ui.nabu.casa/dashboard-kiosk/0"
   sleep 5
 done &
 EOF
