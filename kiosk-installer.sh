@@ -36,7 +36,7 @@ sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' /home/$USER/.config/chrom
 
 while true; do
    xdotool keydown ctrl+r; xdotool keyup ctrl+r;
-   sleep 5
+   sleep 300
 done
 EOF
 
