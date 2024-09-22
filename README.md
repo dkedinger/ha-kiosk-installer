@@ -1,5 +1,5 @@
-# Kiosk installer for Debian based Linux distros
-Small installer script to setup a minimal kiosk with Chromium for Debian based Linux distros. This installer is heavily based on the excellent instructions by user [josfaber](https://github.com/josfaber/debian-kiosk-installer/tree/master).
+# Kiosk installer for Raspberry PI
+Small installer script to setup a minimal kiosk with Chromium Browser for Raspberry PI. This installer is heavily based on the excellent instructions by user [josfaber](https://github.com/josfaber/debian-kiosk-installer/tree/master).
 
 ## Usage
 1. Setup a Raspberry Pi with Lite (32bit) using Imager. Configure settings to have Wifi and SSH enabled.
